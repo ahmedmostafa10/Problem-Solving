@@ -104,12 +104,106 @@ ll max(ll x, ll y) {
 		return y;
 	}
 }
+void reverseString(string& s)
+{
+	int p1 = 0, p2 = s.size() - 1;
+	while (p1 < p2)
+	{
+		char temp = s[p1];
+		s[p1] = s[p2];
+		s[p2] = temp;
+		p1++;
+		p2--;
+	}
+}
+bool checkstring(string& s)
+{
+	int i = 0;
+	while (i < s.size())
+	{
+		if (s[i]=='1')
+		{
+			return false;
+		}
+		i++;
+	}
+	return true;
+}
 
 void solve() {
 
 	int TC; cin >> TC;
 	while (TC--)
 	{
+		int n; cin >> n;
+		string num; cin >> num;
+		bool x = checkstring(num);
+		reverseString(num);
+		int p1 = 1;
+		int p2 = 0;
+		int p3 = 0;
+		ll swaps = 0;
+		//5
+		//10101
+		while (p1 <= n)
+		{
+			if (x)
+			{
+				cout << 0 << " ";
+				if (p1 == n)
+				{
+					cout << endl;
+				}
+				p1++;
+				continue;
+			}
+			else if (p1 == n)
+			{
+				cout << -1 << endl;
+				break;
+			}
+			else
+			{
+				while (p2 < n && p3 < n && p2 < p1)
+				{
+
+					if (num[p2] == '0')
+					{
+						p2++;
+						p3++;
+					}
+					else
+					{
+						p3++;
+						while (p3 < n && p2 < n && p2 < p1)
+						{
+							if (num[p3] == '0')
+							{
+								swaps += (p3 - p2);
+								num[p3] = '1';
+								p2++;
+							}
+							else
+							{
+								p3++;
+
+							}
+
+						}
+					}
+				}
+
+			}
+			if (p3 == n && p2 != p1)
+			{
+				cout << -1 << " ";
+			}
+			else
+			{
+				cout << swaps << " ";
+			}
+			p1++;
+		}
 
 	}
 
